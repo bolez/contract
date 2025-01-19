@@ -2,6 +2,6 @@
   "model_name": "",
   "columns": {
     "name11": "string",
-    "age": "int"
+    "age": "float"
   }
 }
