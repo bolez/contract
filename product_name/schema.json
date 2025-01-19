@@ -1,0 +1,7 @@
+{
+  "model_name": "",
+  "columns": {
+    "name": "string",
+    "age": "int"
+  }
+}
