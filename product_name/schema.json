@@ -1,7 +1,7 @@
 {
   "model_name": "",
   "columns": {
-    "name1": "string",
+    "name11": "string",
     "age": "int"
   }
 }
