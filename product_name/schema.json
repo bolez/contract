@@ -1,7 +1,7 @@
 {
   "model_name": "",
   "columns": {
-    "name11": "string",
+    "name12": "string",
     "age1": "float"
   }
 }
