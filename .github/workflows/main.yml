@@ -67,7 +67,7 @@ jobs:
         GH_PAT: ${{ secrets.GH }}
         SCHEMA_CHANGES: ${{ env.schema_changes }}  
       run: |
-        ESCAPED_CHANGES=$(jq -c . <<< "${{ env.schema_changes }}")
+        ESCAPED_CHANGES$(echo "${{ env.schema_changes }}" | jq -c .)
         echo "changes $ESCAPED_CHANGES"
         CONSUMER_REPOS=("d1")
         for repo in "${CONSUMER_REPOS[@]}"
