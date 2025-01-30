@@ -17,7 +17,7 @@ models:
     name: c_phonesh79
   - data_type: numbers
     description: ''
-    name: c_acctbalqeu
+    name: c_acctbalqeuk
   - data_type: varcharg
     description: ''
     name: c_mktsegmentl
