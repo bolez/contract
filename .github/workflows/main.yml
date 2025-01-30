@@ -47,3 +47,48 @@ jobs:
     #       -d '{"title":"Breaking Change Detected","body":"The contract has changed. Please review."}' \
     #       https://api.github.com/repos/$REPO/issues
     #     done
+    - name: Validate Schema and Detect Changes
+      id: schema_validation
+      run: |
+        SCHEMA_OUTPUT=$(python validate_contract.py old_contract.yml new_contract.yml)
+        echo "Schema output: $SCHEMA_OUTPUT"
+    
+        # Extract values from JSON output
+        CHANGE_TYPE=$(echo "$SCHEMA_OUTPUT" | jq -r '.change_type')
+        CHANGES=$(echo "$SCHEMA_OUTPUT" | jq -c '.changes')
+
+        echo "Detected change type: $CHANGE_TYPE"
+        echo "change_type=$CHANGE_TYPE" >> $GITHUB_ENV
+        echo "schema_changes=$CHANGES" >> $GITHUB_ENV
+
+    - name: Raise Issues in Consumer Repos
+      if: env.change_type == 'major' || env.change_type == 'minor'
+      env:
+        GH_PAT: ${{ secrets.GH }}
+      run: |
+        CONSUMER_REPOS=("d1")
+        for repo in "${CONSUMER_REPOS[@]}"
+        do
+          curl -X POST -H "Authorization: token $GH_PAT" \
+          -d '{
+            "title": "Schema Update Detected",
+            "body": "**Schema Version:** '"1"'\n\n**Changes:** '"$schema_changes"'"
+          }' \
+          https://api.github.com/repos/bolez/${repo}/issues
+        done
+
+    - name: Fail Pipeline If Schema Change is Major
+      if: env.change_type == 'major'
+      run: |
+        echo "Breaking changes detected. Failing pipeline."
+        exit 1
+
+    - name: Push schema updates
+      if: env.change_type == 'patch'
+      run: |
+        cd contract
+        git config user.name "github-actions"
+        git config user.email "actions@github.com"
+        git add .
+        git commit -m "Update schema for product_name"
+        git push https://x-access-token:${{ secrets.GH }}@github.com/bolez/contract.git main
