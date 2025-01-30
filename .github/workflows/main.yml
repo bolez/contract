@@ -1,0 +1,48 @@
+name: Validate Contract Changes
+
+on:
+  push:
+    paths:
+      - "product_names/**"  # Runs only if contract files are modified
+
+jobs:
+  validate_contract:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Central Contract Repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 2  # Fetch previous commit to compare
+
+    - name: Identify Changed Contract File
+      id: changed_files
+      run: |
+        CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- "contracts/")
+        echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+
+    - name: Extract Old and New Contract Versions
+      run: |
+        for FILE in $CHANGED_FILES; do
+          if [ -f "$FILE" ]; then
+            echo "Saving previous version of $FILE..."
+            git show HEAD~1:"$FILE" > old_contract.yml || touch old_contract.yml
+            cp "$FILE" new_contract.yml
+          fi
+        done
+
+    - name: Validate Contract Changes
+      run: |
+        python validate_contract.py old_contract.yml new_contract.yml
+
+    # - name: Raise Issue for Consumers (if breaking change)
+    #   if: failure()
+    #   env:
+    #     GH_PAT: ${{ secrets.GH }}
+    #   run: |
+    #     CONSUMER_REPOS=("consumer-repo-1" "consumer-repo-2")
+    #     for REPO in "${CONSUMER_REPOS[@]}"; do
+    #       curl -X POST -H "Authorization: token $GH_PAT" \
+    #       -d '{"title":"Breaking Change Detected","body":"The contract has changed. Please review."}' \
+    #       https://api.github.com/repos/$REPO/issues
+    #     done
