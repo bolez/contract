@@ -72,7 +72,7 @@ jobs:
           curl -X POST -H "Authorization: token $GH_PAT" \
           -d '{
             "title": "Schema Update Detected",
-            "body": "**Schema Version:** '"1"'\n\n**Changes:** '"$SCHEMA_OUTPUT"'"
+            "body": "**Schema Version:** '"1"'\n\n**Changes:** '"$CHANGES"'"
           }' \
           https://api.github.com/repos/bolez/${repo}/issues
         done
