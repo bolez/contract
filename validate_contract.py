@@ -59,7 +59,7 @@ if __name__ == "__main__":
         response = {
             "status": "new_schema",
             "change_type": "patch",
-            "changes": ["Initial schema creation"]
+            "changes": "Initial schema creation"
         }
         print(json.dumps(response))
         sys.exit(0)
@@ -71,13 +71,13 @@ if __name__ == "__main__":
         response = {
             "status": "updated",
             "change_type": change_type,
-            "changes": changes
+            "changes": ",".join(changes)
         }
     else:
         response = {
             "status": "unchanged",
             "change_type": "patch",
-            "changes": []
+            "changes": ""
         }
     print(json.dumps(response))
     # return json.dumps(response)
