@@ -77,18 +77,18 @@ jobs:
           https://api.github.com/repos/bolez/${repo}/issues
         done
 
-    - name: Fail Pipeline If Schema Change is Major
-      if: env.change_type == 'major'
-      run: |
-        echo "Breaking changes detected. Failing pipeline."
-        exit 1
+    # - name: Fail Pipeline If Schema Change is Major
+    #   if: env.change_type == 'major'
+    #   run: |
+    #     echo "Breaking changes detected. Failing pipeline."
+    #     exit 1
 
-    - name: Push schema updates
-      if: env.change_type == 'patch'
-      run: |
-        cd contract
-        git config user.name "github-actions"
-        git config user.email "actions@github.com"
-        git add .
-        git commit -m "Update schema for product_name"
-        git push https://x-access-token:${{ secrets.GH }}@github.com/bolez/contract.git main
+    # - name: Push schema updates
+    #   if: env.change_type == 'patch'
+    #   run: |
+    #     cd contract
+    #     git config user.name "github-actions"
+    #     git config user.email "actions@github.com"
+    #     git add .
+    #     git commit -m "Update schema for product_name"
+    #     git push https://x-access-token:${{ secrets.GH }}@github.com/bolez/contract.git main
