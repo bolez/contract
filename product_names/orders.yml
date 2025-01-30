@@ -11,7 +11,7 @@ models:
     name: c_address
   - data_type: number
     description: ''
-    name: c_nationkey
+    name: c_nationkeyw
   - data_type: varchar
     description: ''
     name: c_phone
