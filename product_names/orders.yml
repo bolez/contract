@@ -18,7 +18,7 @@ models:
   - data_type: numbers
     description: ''
     name: c_acctbalqeuk
-  - data_type: varcharg
+  - data_type: varchark
     description: ''
     name: c_mktsegmentl
   - data_type: varchar
