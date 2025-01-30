@@ -3,7 +3,7 @@ models:
   - data_type: number
     description: ''
     name: c_custkey
-  - data_type: varchar
+  - data_type: varchard
     description: ''
     name: c_name
   - data_type: varchar
