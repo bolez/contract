@@ -67,14 +67,20 @@ jobs:
         GH_PAT: ${{ secrets.GH }}
         SCHEMA_CHANGES: ${{ env.schema_changes }}  
       run: |
-        echo "SCHEMA_CHANGES:  ${{ env.schema_changes }}"
+        echo "SCHEMA_CHANGES: $SCHEMA_CHANGES"
+        
+        # Ensure SCHEMA_CHANGES is properly escaped JSON
+        ESCAPED_CHANGES=$(jq -Rsa . <<< "$SCHEMA_CHANGES")
+
+        echo "Escaped JSON: $ESCAPED_CHANGES"
+
         CONSUMER_REPOS=("d1")
         for repo in "${CONSUMER_REPOS[@]}"
         do
-          curl -X POST -H "Authorization: token $GH_PAT" \
+          curl -X POST -H "Authorization: token $GH_PAT" -H "Content-Type: application/json" \
           -d "{
             \"title\": \"Schema Update Detected\",
-            \"body\": \"**Schema Version:** $SCHEMA_CHANGES\n\"
+            \"body\": \"**Schema Version:** 1.0.0\n\n**Changes:** ${ESCAPED_CHANGES}\"
           }" \
           https://api.github.com/repos/bolez/${repo}/issues
         done
