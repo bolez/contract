@@ -19,6 +19,7 @@ jobs:
       id: changed_files
       run: |
         CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- "contracts/")
+        echo CHANGED_FILES
         echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
 
     - name: Extract Old and New Contract Versions
