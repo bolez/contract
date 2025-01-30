@@ -78,10 +78,7 @@ jobs:
         for repo in "${CONSUMER_REPOS[@]}"
         do
           curl -X POST -H "Authorization: token $GH_PAT" -H "Content-Type: application/json" \
-          -d "{
-            \"title\": \"Schema Update Detected\",
-            \"body\": \"**Schema Version:** 1.0.0\n\n**Changes:** ${ESCAPED_CHANGES}\"
-          }" \
+          -d '{"title":"Breaking Change Detected","body":"The contract has changed. Please review."}' \
           https://api.github.com/repos/bolez/${repo}/issues
         done
 
