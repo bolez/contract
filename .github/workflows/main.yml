@@ -76,10 +76,11 @@ jobs:
           curl -X POST -H "Authorization: token $GH_PAT" \
           -d "{
             \"title\": \"Schema Update Detected\",
-            \"body\": \"**Schema Version:** 1\n\n**Changes:** ${ESCAPED_CHANGES}\"
+            \"body\": \"**Schema Version:** 1\n\n**Changes:** $SCHEMA_CHANGES\"
           }" \
           https://api.github.com/repos/bolez/${repo}/issues
         done
+
 
     # - name: Fail Pipeline If Schema Change is Major
     #   if: env.change_type == 'major'
