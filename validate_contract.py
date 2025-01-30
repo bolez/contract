@@ -62,7 +62,7 @@ if __name__ == "__main__":
             "changes": ["Initial schema creation"]
         }
         print(json.dumps(response))
-        return json.dumps(response)
+        # return json.dumps(response)
     current_version = old_contract.get("version", "1.0.0")
     
     change_type, changes = compare_contracts(old_contract, new_contract)
@@ -79,7 +79,7 @@ if __name__ == "__main__":
             "changes": []
         }
     print(json.dumps(response))
-    return json.dumps(response)
+    # return json.dumps(response)
     # if changes:
     #     print(f"Detected {change_type} changes:")
     #     for change in changes:
