@@ -68,16 +68,17 @@ jobs:
         SCHEMA_CHANGES: ${{ env.schema_changes }}  
       run: |
         echo "SCHEMA_CHANGES: $SCHEMA_CHANGES"
-        ESCAPED_CHANGES=$(echo "$SCHEMA_CHANGES" | jq -Rs .)
-        echo "ESCAPED_CHANGES: $ESCAPED_CHANGES"
+        ESCAPED_CHANGES=$(jq -Rsa . <<< "$SCHEMA_CHANGES")
+        echo "Escaped JSON: $ESCAPED_CHANGES"
         CONSUMER_REPOS=("d1")
         for repo in "${CONSUMER_REPOS[@]}"
         do
           curl -X POST -H "Authorization: token $GH_PAT" \
-          -d '{
-            "title": "Schema Update Detected",
-            "body": "**Schema Version:** '"1"'\n\n**Changes:** '"$ESCAPED_CHANGES"'"
-          }' \
+          -d "{
+            \"title\": \"Schema Update Detected\",
+            \"body\": \"**Schema Version:** 1\n\n**Changes:** ${ESCAPED_CHANGES}\"
+          }" \
+
           https://api.github.com/repos/bolez/${repo}/issues
         done
 
