@@ -52,7 +52,7 @@ jobs:
       run: |
         SCHEMA_OUTPUT=$(python validate_contract.py old_contract.yml new_contract.yml)
         echo "Schema output: $SCHEMA_OUTPUT"
-    
+      
         # Extract values from JSON output
         CHANGE_TYPE=$(echo "$SCHEMA_OUTPUT" | jq -r '.change_type')
         CHANGES=$(echo "$SCHEMA_OUTPUT" | jq -c '.changes')
@@ -67,7 +67,7 @@ jobs:
         GH_PAT: ${{ secrets.GH }}
         SCHEMA_CHANGES: ${{ env.schema_changes }}  
       run: |
-
+        echo "SCHEMA_CHANGES: $SCHEMA_CHANGES"
         CONSUMER_REPOS=("d1")
         for repo in "${CONSUMER_REPOS[@]}"
         do
