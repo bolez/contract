@@ -62,6 +62,7 @@ if __name__ == "__main__":
             "changes": ["Initial schema creation"]
         }
         print(json.dumps(response))
+        sys.exit(0)
         # return json.dumps(response)
     current_version = old_contract.get("version", "1.0.0")
     
