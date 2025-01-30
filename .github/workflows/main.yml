@@ -67,6 +67,7 @@ jobs:
         GH_PAT: ${{ secrets.GH }}
         SCHEMA_CHANGES: ${{ env.schema_changes }}  
       run: |
+        echo "changes $SCHEMA_CHANGES"
         CONSUMER_REPOS=("d1")
         for repo in "${CONSUMER_REPOS[@]}"
         do
