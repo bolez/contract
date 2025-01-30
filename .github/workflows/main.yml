@@ -18,7 +18,7 @@ jobs:
     - name: Identify Changed Contract File
       id: changed_files
       run: |
-        CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- "contracts/")
+        CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- "product_names/")
         echo $CHANGED_FILES
         echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
 
