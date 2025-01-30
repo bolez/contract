@@ -20,7 +20,7 @@ models:
     name: c_acctbalqeuk
   - data_type: varchark
     description: ''
-    name: c_mktsegmentl
+    name: c_mktsegmentli
   - data_type: varchar
     description: ''
     name: c_comments
