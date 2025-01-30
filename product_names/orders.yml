@@ -5,7 +5,7 @@ models:
     name: c_custkey
   - data_type: varchar
     description: ''
-    name: c_names
+    name: c_name
   - data_type: varchar
     description: ''
     name: c_address
