@@ -21,9 +21,9 @@ def compare_contracts(old_contract, new_contract):
     
     for column in old_columns:
         if column not in new_columns:
-            breaking_changes.append(f"Column removed: {column}")
+            breaking_changes.append(f"Column removed {column}")
         elif old_columns[column]["data_type"] != new_columns[column]["data_type"]:
-            breaking_changes.append(f"Data type changed for column: {column}")
+            breaking_changes.append(f"Data type changed for column {column}")
         elif old_columns[column]["description"] != new_columns[column]["description"]:
             patch_changes.append(f"Description changed for column {column}")
 
