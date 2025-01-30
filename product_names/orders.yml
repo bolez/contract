@@ -24,7 +24,7 @@ models:
   - data_type: varchar
     description: ''
     name: c_comment
-  - data_type: varchar
+  - data_type: varchared
     description: ''
     name: n_names
   description: ''
