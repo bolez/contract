@@ -14,7 +14,7 @@ models:
     name: c_nationkeyw
   - data_type: varchar
     description: ''
-    name: c_phone
+    name: c_phones
   - data_type: number
     description: ''
     name: c_acctbal
